@@ -1,39 +1,75 @@
 <?php
     $registroCreado = FALSE;
     if($_POST){
-    $cedulaCliente = ($_POST["cedCli"]);
-    $nombreCliente = ($_POST["nombCli"]);
-    $apellidoCliente = ($_POST["apeCli"]);
-    $direccionCliente = ($_POST["dirCli"]);
-    $telefonoCliente = ($_POST["telCli"]);
-    $correoCliente = ($_POST["corrCli"]);
-    $contrasenaCliente = ($_POST["contCli"]);
+        if($_POST['registroCli']){
+            $cedulaCliente = ($_POST["cedCli"]);
+            $nombreCliente = ($_POST["nombCli"]);
+            $apellidoCliente = ($_POST["apeCli"]);
+            $direccionCliente = ($_POST["dirCli"]);
+            $telefonoCliente = ($_POST["telCli"]);
+            $correoCliente = ($_POST["corrCli"]);
+            $contrasenaCliente = ($_POST["contCli"]);
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "practica2";
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "practica2";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-    $sql = "INSERT INTO usuario (correo, contrasena, rol)
-    VALUES ( '$correoCliente', '$contrasenaCliente', 'C')";
+            $sql = "INSERT INTO usuario (correo, contrasena, rol)
+            VALUES ( '$correoCliente', '$contrasenaCliente', 'C')";
 
-    //echo $sql;
+            //echo $sql;
 
-    if ($conn->query($sql) === TRUE) {
-        //echo "New record created successfully";
-        $registroCreado = TRUE;
-    } else {
-        //echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+            if ($conn->query($sql) === TRUE) {
+                //echo "New record created successfully";
+                $registroCreado = TRUE;
+            } else {
+                //echo "Error: " . $sql . "<br>" . $conn->error;
+            }
 
-    $conn->close();
+            $conn->close();
+
+        }elseif($_POST['registroRe']){
+            $codigoRe = ($_POST["codRe"]);
+            $nombreRe = ($_POST["nomRe"]);
+            $direccionRe = ($_POST["dirRe"]);
+            $telefonoRe = ($_POST["telRe"]);
+            $correoRe = ($_POST["corrRe"]);
+            $contrasenaRe = ($_POST["contRe"]);
+
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "practica2";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $sql = "INSERT INTO usuario (correo, contrasena, rol)
+            VALUES ( '$correoRe', '$contrasenaRe', 'R')";
+
+            echo $sql;
+
+            if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+                $registroCreado = TRUE;
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            $conn->close();
+        }
     }   
     
 ?>
@@ -60,12 +96,12 @@
         <?php 
             if ($registroCreado){
                 echo '<div class="alert alert-dark" role="alert">
-                Cliente creado correctamente!
+                Creado correctamente!
                 </div>';
             }
             if($_POST && !$registroCreado){
                 echo '<div class="alert alert-dark" role="alert">
-                Error al crear el cliente!
+                Error al crear!
                 </div>';
             }
         ?>
@@ -196,7 +232,7 @@
             </tr>
         </table>
         <br>
-        <input type="button" value="Registrar Restaurante" class="w-50 btn btn-secondary" id="registrarRestaurante" name="registroRe">
+        <input type="submit" value="Registrar Restaurante" class="w-50 btn btn-secondary" id="registrarRestaurante" name="registroRe">
     </div>
 
     <div id="columna4">

@@ -1,3 +1,39 @@
+<?php
+  $usuarioEncontrado = FALSE;
+  if($_POST){
+    $correo = ($_POST['correo']);
+    $contrsena = ($_POST['contrasena']);
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "practica2";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT 
+    INSERT INTO usuario (correo, contrasena, rol)
+    VALUES ( '$correoCliente', '$contrasenaCliente', 'C')";
+
+    //echo $sql;
+
+    if ($conn->query($sql) === TRUE) {
+      //echo "New record created successfully";
+      $registroCreado = TRUE;
+    } else {
+      //echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+            
+    $conn->close();
+
+  }
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -35,11 +71,11 @@
 
 
     <div class="form-floating" width="200" >
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" size="50">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" size="50" name="correo"> 
       <label for="floatingInput">Correo electrónico</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="contrasena"> 
       <label for="floatingPassword">Contraseña</label>
     </div>
 
