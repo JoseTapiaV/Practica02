@@ -90,9 +90,23 @@
       <p >¿No encuentras todo loque buscas? No te preocupes, puedes seguir buscándolo desde nuestra sección de búsqueda. Incluso, si te gusta algo del menú, puedes comprarlo.</p>
       <a class="btn btn-outline-secondary" href="MenuCompra/MenuCompra.php">Búsqueda y Compra</a>
     </div>
-
   </div>
 
+  <!-- Botón para el CRUD de los productos-->
+  <div class=" text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <p >¿Quieres actualizar o manipular tus productos? En el siguiente botón lo encontrarás.</p>
+      <a class="btn btn-outline-secondary" href="CRUDProducto/CRUDProducto.php">Actualizar productos</a>
+    </div>
+  </div>
+
+  <!-- Botón para el CRUD de la compra -->
+  <div class=" text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <p >¿Quieres actualizar o manipular tus compras? En el siguiente botón lo encontrarás.</p>
+      <a class="btn btn-outline-secondary" href="CRUDCompra/CRUDCompra.php">Actualizar compra</a>
+    </div>
+  </div>
 
 
 <!-- Botones inferiores -->

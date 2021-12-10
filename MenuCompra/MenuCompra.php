@@ -151,6 +151,4 @@
   </div>
 </main>
 
-    
-  </body>
 </html>

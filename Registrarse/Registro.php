@@ -37,7 +37,6 @@
             $conn->close();
 
         }elseif($_POST['registroRe']){
-            $codigoRe = ($_POST["codRe"]);
             $nombreRe = ($_POST["nomRe"]);
             $direccionRe = ($_POST["dirRe"]);
             $telefonoRe = ($_POST["telRe"]);
@@ -59,13 +58,13 @@
             $sql = "INSERT INTO usuario (correo, contrasena, rol)
             VALUES ( '$correoRe', '$contrasenaRe', 'R')";
 
-            echo $sql;
+            //echo $sql;
 
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
+                //echo "New record created successfully";
                 $registroCreado = TRUE;
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                //echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
             $conn->close();
@@ -184,14 +183,6 @@
         <h1 class="h1">Registro para un restaurante</h1><br>
         <p>A continuación ingrese los siguientes datos del restaurante:</p><br>
         <table id="tabla">
-            <tr>
-                <td> 
-                    <p>Código:&nbsp;</p> 
-                </td>
-                <td> 
-                    <input type="number" class="form-control" id="codigoRe" placeholder="0123456789" size="40" name="codRe"> 
-                </td>
-            </tr>
             <tr>
                 <td> 
                     <p>Nombre:&nbsp;</p> 
