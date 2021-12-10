@@ -1,8 +1,9 @@
 <?php
   $usuarioEncontrado = FALSE;
   if($_POST){
+    if($_POST['inicioSesion']){
     $correo = ($_POST['correo']);
-    $contrsena = ($_POST['contrasena']);
+    $contrasena = ($_POST['contrasena']);
 
     $servername = "localhost";
     $username = "root";
@@ -16,22 +17,23 @@
       die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT 
-    INSERT INTO usuario (correo, contrasena, rol)
-    VALUES ( '$correoCliente', '$contrasenaCliente', 'C')";
-
+    $sql = "SELECT id, correo, contrasena, rol FROM usuario WHERE correo='$correo' AND contrasena='$contrasena'";
     //echo $sql;
 
-    if ($conn->query($sql) === TRUE) {
-      //echo "New record created successfully";
-      $registroCreado = TRUE;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $usuarioEncontrado = TRUE;
+        //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+      }
     } else {
-      //echo "Error: " . $sql . "<br>" . $conn->error;
+      //echo "0 results";
     }
+    mysqli_close($conn);
 
-            
-    $conn->close();
-
+    }
   }
 ?>
 <!doctype html>
@@ -65,9 +67,21 @@
 
 <body >
 <main >
-  <form>
+  <form method="post" action="">
     <img class="mb-4" src="../Images/InicioSesion.png" alt="" width="300" height="200">
     <h1 >Por favor inicia sesión</h1>
+    <?php 
+            if ($usuarioEncontrado){
+                echo '<div class="alert alert-dark" role="alert">
+                Inició correctamente!
+                </div>';
+            }
+            if($_POST && !$usuarioEncontrado){
+                echo '<div class="alert alert-dark" role="alert">
+                No inició correctamente!
+                </div>';
+            }
+        ?>
 
 
     <div class="form-floating" width="200" >
@@ -78,11 +92,8 @@
       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="contrasena"> 
       <label for="floatingPassword">Contraseña</label>
     </div>
-
-    <div class="checkbox mb-3">
-
-    </div>
-    <button class="w-100 btn btn-secondary" type="submit">Iniciar sesión</button>
+    <br>
+    <input type="submit" value="Iniciar Sesión" class="w-100 btn btn-secondary" id="inicioSesion" name="inicioSesion">
     <p></p>
     <a href="../index.php"><input type="button" value="Regresar" class="w-100 btn btn-secondary"></a>
   </form>

@@ -177,7 +177,9 @@
     </div>
 
     </form>
+
     <!-- Registro restaurante -->
+    <form method="post" action=""> 
     <div id="columna3">
         <h1 class="h1">Registro para un restaurante</h1><br>
         <p>A continuación ingrese los siguientes datos del restaurante:</p><br>
@@ -234,6 +236,7 @@
         <br>
         <input type="submit" value="Registrar Restaurante" class="w-50 btn btn-secondary" id="registrarRestaurante" name="registroRe">
     </div>
+    </form>
 
     <div id="columna4">
         <a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
