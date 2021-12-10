@@ -47,8 +47,8 @@
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
-    <a class="py-2 d-none d-md-inline-block" href="Registrarse/Registro.html">Registrarse</a>
-    <a class="py-2 d-none d-md-inline-block" href="SignIn/SigIn.html">Iniciar Sesión</a>
+    <a class="py-2 d-none d-md-inline-block" href="Registrarse/Registro.php">Registrarse</a>
+    <a class="py-2 d-none d-md-inline-block" href="SignIn/SigIn.php">Iniciar Sesión</a>
   </nav>
 </header>
 
@@ -58,7 +58,7 @@
       <h1 class="display-4 fw-normal">Tu catálogo de restaurantes</h1>
       <p class="lead fw-normal">En esta página se te mostrará un catálogo. de varios productos que pueden ofreceer los restaurantes.</p>
       <p class="lead fw-normal">Incluso, si deseas puedes registrarte así seas un cliente o dueño de un restaurante!!!</p>
-      <a class="btn btn-outline-secondary" href="Registrarse/Registro.html">Regístrate</a>
+      <a class="btn btn-outline-secondary" href="Registrarse/Registro.php">Regístrate</a>
     </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
@@ -88,7 +88,7 @@
   <div class=" text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <p >¿No encuentras todo loque buscas? No te preocupes, puedes seguir buscándolo desde nuestra sección de búsqueda. Incluso, si te gusta algo del menú, puedes comprarlo.</p>
-      <a class="btn btn-outline-secondary" href="MenuCompra/MenuCompra.html">Búsqueda y Compra</a>
+      <a class="btn btn-outline-secondary" href="MenuCompra/MenuCompra.php">Búsqueda y Compra</a>
     </div>
 
   </div>

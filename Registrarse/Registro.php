@@ -1,3 +1,43 @@
+<?php
+    $registroCreado = FALSE;
+    if($_POST){
+    $cedulaCliente = ($_POST["cedCli"]);
+    $nombreCliente = ($_POST["nombCli"]);
+    $apellidoCliente = ($_POST["apeCli"]);
+    $direccionCliente = ($_POST["dirCli"]);
+    $telefonoCliente = ($_POST["telCli"]);
+    $correoCliente = ($_POST["corrCli"]);
+    $contrasenaCliente = ($_POST["contCli"]);
+    
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "practica2";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "INSERT INTO usuario (correo, contrasena, rol)
+    VALUES ( '$correoCliente', '$contrasenaCliente', 'C')";
+
+    //echo $sql;
+
+    if ($conn->query($sql) === TRUE) {
+        //echo "New record created successfully";
+        $registroCreado = TRUE;
+    } else {
+        //echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+    }   
+    
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,11 +57,27 @@
             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
           </svg>
         <h1>Registro para nuevos clientes o restaurantes</h1>
+        <?php 
+            if ($registroCreado){
+                echo '<div class="alert alert-dark" role="alert">
+                Cliente creado correctamente!
+                </div>';
+            }
+            if($_POST && !$registroCreado){
+                echo '<div class="alert alert-dark" role="alert">
+                Error al crear el cliente!
+                </div>';
+            }
+        ?>
     </div>
+
+    <!-- Registro cliente -->
+    <form method="post" action="">
 
     <div id="columna2">
         <h1 class="h1">Registro para un cliente</h1><br>
-        <p>A continuación ingrese los siguientes datos del cliente:</p><br>
+        <p>A continuación ingrese los siguientes datos del cliente:</p><br>        
+        
         <table id="tabla">
             <tr>
                 <td> 
@@ -81,9 +137,11 @@
             </tr>
         </table>
         <br>
-        <input type="button" value="Registrar Cliente" class="w-50 btn btn-secondary" id="registrarCliente" name="registroCli">
+        <input type="submit" value="Registrar Cliente" class="w-50 btn btn-secondary" id="registrarCliente" name="registroCli">
     </div>
 
+    </form>
+    <!-- Registro restaurante -->
     <div id="columna3">
         <h1 class="h1">Registro para un restaurante</h1><br>
         <p>A continuación ingrese los siguientes datos del restaurante:</p><br>
@@ -142,7 +200,7 @@
     </div>
 
     <div id="columna4">
-        <a href="../index.html"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
+        <a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
     </div>
 
     </main>
@@ -150,3 +208,4 @@
 </body>
 
 </html>
+

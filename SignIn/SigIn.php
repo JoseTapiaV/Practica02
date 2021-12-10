@@ -48,7 +48,7 @@
     </div>
     <button class="w-100 btn btn-secondary" type="submit">Iniciar sesión</button>
     <p></p>
-    <a href="../index.html"><input type="button" value="Regresar" class="w-100 btn btn-secondary"></a>
+    <a href="../index.php"><input type="button" value="Regresar" class="w-100 btn btn-secondary"></a>
   </form>
 </main>
 
