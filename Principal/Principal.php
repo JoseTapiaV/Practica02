@@ -149,6 +149,7 @@
     </div>
   </div>
 
+  <<?php if($rol == 'C'):?>
   <!-- Botón para mostrar el menú completo-->
   <div class=" text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -156,9 +157,7 @@
       <a class="btn btn-outline-secondary" href="../MenuCompra/MenuCompra.php">Búsqueda y Compra</a>
     </div>
   </div>
-
-  
-  <?php if($rol == 'R'):?>
+  <?php elseif($rol == 'R'):?>
     <!-- Botón para el CRUD de los productos-->
     <div class=" text-center bg-light">
       <div class="col-md-5 p-lg-5 mx-auto my-5">

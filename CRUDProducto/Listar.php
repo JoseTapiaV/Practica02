@@ -1,7 +1,11 @@
 <?php
-  if($_POST){
+    session_start();
+    $usuario_id=$_SESSION['Inicio'];
+    $codigoRestaurante="";
+    $datos= null;
+
+    if($_POST){
     if($_POST['listar']){
-        $restaurante_id=6;
 
         $servername = "localhost";
         $username = "root";
@@ -15,15 +19,31 @@
           die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT codigo, nombre, descripcion, precio FROM producto WHERE restaurante_id = $restaurante_id";
-        echo $sql;
+        $sqlcod = "SELECT codigo FROM restaurante WHERE usuario_id='$usuario_id'";
+        //echo $sql;
+
+        $result = mysqli_query($conn, $sqlcod);
+
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+                $codigoRestaurante = $row["codigo"];
+            }
+        } else {
+              //echo "0 results";
+        }
+
+        $sql = "SELECT codigo, nombre, descripcion, precio FROM producto WHERE restaurante_id = $codigoRestaurante";
+        //echo $sql;
 
         $result = $conn->query($sql);
 
         if ($result) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
+            //echo  $row["codigo"]." ". $row["nombre"]. " " . $row["descripcion"]." ".$row["precio"]."<br>";
+            $datos .= '<tr><th scope="col">'.$row["codigo"].'</th>'. '<th scope="col">'.$row["nombre"].'</th>'. '<th scope="col">'.$row["descripcion"].'</th>'. '<th scope="col">'.$row["precio"].'</th></tr>';
         }
         } else {
             echo "0 results";
@@ -85,6 +105,9 @@
                             <th scope="col">Descripción</th>
                             <th scope="col">Precio</th>
                         </tr>  
+                        <?php 
+                            echo $datos;
+                        ?>
                     </thead>
                 </table>
                 <br><br>

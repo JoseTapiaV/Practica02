@@ -1,7 +1,6 @@
 <?php
     session_start();
     $usuario_id=$_SESSION['Inicio'];
-    $registroCreado = FALSE;
     $codigoRestaurante="";
     if($_POST){
         if($_POST['registrar']){
@@ -31,7 +30,6 @@
             if (mysqli_num_rows($result) > 0) {
               // output data of each row
               while($row = $result->fetch_assoc()) {
-                $usuarioEncontrado = TRUE;
                 //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
                 $codigoRestaurante = $row["codigo"];
               }
@@ -46,7 +44,6 @@
 
             if ($conn->query($sql) === TRUE) {
                 //echo "New record created successfully";
-                $registroCreado = TRUE;
             } else {
                 //echo "Error: " . $sql . "<br>" . $conn->error;
             }
