@@ -73,12 +73,12 @@
     <?php 
             if ($usuarioEncontrado){
                 echo '<div class="alert alert-dark" role="alert">
-                Inició correctamente!
+                Usuario:' . $correo . '<br>Inició sesión correctamente!
                 </div>';
             }
             if($_POST && !$usuarioEncontrado){
                 echo '<div class="alert alert-dark" role="alert">
-                No inició correctamente!
+                Usuario:' . $correo . '<br>No inició sesión correctamente!
                 </div>';
             }
         ?>
