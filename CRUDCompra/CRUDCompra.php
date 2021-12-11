@@ -88,7 +88,7 @@
   </div>
 
   <div id="boton">
-      <a href="../index.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
+      <a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
     </div>
 </main>
 

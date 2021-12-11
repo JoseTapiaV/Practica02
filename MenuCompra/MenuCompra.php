@@ -1,3 +1,37 @@
+<?php
+  if($_POST){
+    if($_POST['listar']){
+        $restaurante_id=6;
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "practica2";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT codigo, nombre, descripcion, precio FROM producto WHERE restaurante_id = $restaurante_id";
+        echo $sql;
+
+        $result = $conn->query($sql);
+
+        if ($result) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
+        }
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
+  }
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -6,7 +40,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Menú Completo</title>
+    <title>Listar Menú</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/grid/">
     <!-- Bootstrap core CSS -->
@@ -30,125 +64,38 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../CSS/Menu.css" rel="stylesheet">
+    <link href="../CSS/Listar.css" rel="stylesheet">
   </head>
-  <body class="py-4">
-    
-<main>
-  <div class="container">
+<body class="center">
+    <form method="post" action="">
+            
+        <main>
+            <div id="columna1">
 
-    <h1>Menú completo</h1>
-    <p>Aquí puedes encontrar el menú completo del restaurante que desees, obviamente si está registrado. Para poder encontrar el restaurante que estás buscando, debes 
-      escribir el nombre en el siguiente recuadro para poderlo encontrar.
-    </p>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="La Comelona" aria-label="La Comelona" aria-describedby="button-addon2">
-      <button class="btn btn-outline-secondary" type="button" id="buscar">Buscar el restaurante</button>
-    </div>
+                <h1>Listado de todos los productos</h1>
+                <p>Aquí puedes encontrar el menú completo del restaurante.</p>
+                <input type="submit" value="Listar Productos" class="w-50 btn btn-secondary" id="listar" name="listar">
+                <p><br>A continuación, se mostrará el menú completo con todos sus detalles.</p>
 
-    <h2 class="mt-4" id="nombreRestaurante">Nombre del restaurante</h2>
-    <p>A continuación, se mostrará el menú completo con todos sus detalles.</p>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Precio</th>
+                        </tr>  
+                    </thead>
+                </table>
+                <h1><br>¿Viste algo que te gustó? A continación puedes comprarlo.</h1>
 
-    <div class="row">
-      <div class="col themed-grid-col"><b>Código</b></div>
-      <div class="col themed-grid-col"><b>Nombre</b></div>
-      <div class="col themed-grid-col"><b>Descripción</b></div>
-      <div class="col themed-grid-col"><b>Precio</b></div>
-    </div>
+                <br><br>
+                <br><br>
+                <br><a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
 
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-   
-  </div>
-
-  <div class="container">
-    <h1>¿Deseas comprar algo?</h1>
-    <p>Para poder encontrar el producto que estás buscando, debes escribir el nombre en el siguiente recuadro para poderlo encontrar.</p>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Salchipapa" aria-label="Salchipapa" aria-describedby="button-addon2">
-      <button class="btn btn-outline-secondary" type="button" id="comprar">Buscar el producto</button>
-    </div>
-
-    <p>A continuación, se mostrará el producto buscado con sus respectivos detalles.</p>
-
-    <div class="row">
-      <div class="col themed-grid-col"><b>Código</b></div>
-      <div class="col themed-grid-col"><b>Nombre</b></div>
-      <div class="col themed-grid-col"><b>Descripción</b></div>
-      <div class="col themed-grid-col"><b>Precio</b></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-    
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-      <div class="col themed-grid-col"></div>
-    </div>
-  
-    <div id="boton">
-      <a href="../index.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
-    </div>
-  </div>
-</main>
+            </div>  
+        </main>
+    </form>
+</body>
 
 </html>

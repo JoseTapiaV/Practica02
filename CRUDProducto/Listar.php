@@ -88,15 +88,9 @@
                     </thead>
                 </table>
                 <br><br>
-                <br>
-                <br><a href="Crear.php"><input type="button" value="Registrar Producto" class="w-50 btn btn-secondary"></a>
-                <br>
-                <br><a href="Actualizar.php"><input type="button" value="Actualizar los productos" class="w-50 btn btn-secondary"></a>
-                <br>
-                <br><a href="Eliminar.php"><input type="button" value="Eliminar los productos" class="w-50 btn btn-secondary"></a>
-                <br>
-                <br><a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
-                
+                <br><br>
+                <br><a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
+
             </div>  
         </main>
     </form>

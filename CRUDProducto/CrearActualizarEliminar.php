@@ -155,7 +155,7 @@
         <br>
         <br><a href="Listar.php"><input type="button" value="Listar todos los productos" class="w-50 btn btn-secondary"></a>
         <br>
-        <br><a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
+        <br><a href="../Principal/Principal.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
     </div>
   </form>
 

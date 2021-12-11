@@ -230,7 +230,7 @@
     </form>
 
     <div id="columna4">
-        <a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
+        <a href="../LogIn/LogIn.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
     </div>
 
     </main>
