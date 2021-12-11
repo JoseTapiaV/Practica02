@@ -32,6 +32,59 @@
 
             $conn->close();
 
+        }elseif($_POST['actualizar']){
+            $nombre = ($_POST["nombre"]);
+            $descripcion = ($_POST["descripcion"]);
+            $precio = ($_POST["precio"]);
+
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "practica2";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $sql = "UPDATE producto SET nombre='$nombre', descripcion='$descripcion', precio='$precio' WHERE codigo=3";
+
+            if ($conn->query($sql) === TRUE) {
+              echo "Record updated successfully";
+            } else {
+              echo "Error updating record: " . $conn->error;
+            }
+
+            $conn->close();
+        }elseif($_POST['eliminar']){
+            $nombre = ($_POST["nombre"]);
+            $descripcion = ($_POST["descripcion"]);
+            $precio = ($_POST["precio"]);
+
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "practica2";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // sql to delete a record
+            $sql = "DELETE FROM producto WHERE codigo=1";
+
+            if ($conn->query($sql) === TRUE) {
+              echo "Record deleted successfully";
+            } else {
+              echo "Error deleting record: " . $conn->error;
+            }
+
+            $conn->close();
         }
     }   
     
@@ -96,11 +149,11 @@
         <br>
         <br><input type="submit" value="Registrar Producto" class="w-50 btn btn-secondary" id="registrar" name="registrar">
         <br>
+        <br><input type="submit" value="Actualizar Producto" class="w-50 btn btn-secondary" id="actualizar" name="actualizar">
+        <br>
+        <br><input type="submit" value="Eliminar Producto" class="w-50 btn btn-secondary" id="eliminar" name="eliminar">
+        <br>
         <br><a href="Listar.php"><input type="button" value="Listar todos los productos" class="w-50 btn btn-secondary"></a>
-        <br>
-        <br><a href="Actualizar.php"><input type="button" value="Actualizar los productos" class="w-50 btn btn-secondary"></a>
-        <br>
-        <br><a href="Eliminar.php"><input type="button" value="Eliminar los productos" class="w-50 btn btn-secondary"></a>
         <br>
         <br><a href="../index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
     </div>

@@ -96,7 +96,7 @@
   <div class=" text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <p >¿Quieres actualizar o manipular tus productos? En el siguiente botón lo encontrarás.</p>
-      <a class="btn btn-outline-secondary" href="CRUDProducto/Crear.php">Actualizar productos</a>
+      <a class="btn btn-outline-secondary" href="CRUDProducto/CrearActualizarEliminar.php">Actualizar productos</a>
     </div>
   </div>
 
