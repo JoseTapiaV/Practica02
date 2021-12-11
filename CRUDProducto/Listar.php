@@ -43,7 +43,7 @@
         // output data of each row
         while($row = $result->fetch_assoc()) {
             //echo  $row["codigo"]." ". $row["nombre"]. " " . $row["descripcion"]." ".$row["precio"]."<br>";
-            $datos .= '<tr><th scope="col">'.$row["codigo"].'</th>'. '<th scope="col">'.$row["nombre"].'</th>'. '<th scope="col">'.$row["descripcion"].'</th>'. '<th scope="col">'.$row["precio"].'</th></tr>';
+            $datos .= '<tr><td scope="col">'.$row["codigo"].'</td>'. '<td scope="col">'.$row["nombre"].'</td>'. '<td scope="col">'.$row["descripcion"].'</td>'. '<td scope="col">'.$row["precio"].'</td></tr>';
         }
         } else {
             echo "0 results";

@@ -149,7 +149,7 @@
     </div>
   </div>
 
-  <<?php if($rol == 'C'):?>
+  <?php if($rol == 'C'):?>
   <!-- Botón para mostrar el menú completo-->
   <div class=" text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
