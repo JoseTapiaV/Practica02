@@ -30,9 +30,21 @@
             if ($conn->query($sql) === TRUE) {
                 //echo "New record created successfully";
                 $registroCreado = TRUE;
+                $last_id = $conn->insert_id;
+                echo "New record created successfully. Last inserted ID is: " . $last_id;
             } else {
                 //echo "Error: " . $sql . "<br>" . $conn->error;
             }
+
+            $sql = "INSERT INTO cliente (cedula, nombre, apellido, direccion, telefono, usuario_id)
+            VALUES ('$cedulaCliente', '$nombreCliente', '$apellidoCliente', '$direccionCliente', '$telefonoCliente', $last_id)";
+
+            if ($conn->query($sql) === TRUE) {
+                echo $last_id;
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
 
             $conn->close();
 
@@ -63,8 +75,19 @@
             if ($conn->query($sql) === TRUE) {
                 //echo "New record created successfully";
                 $registroCreado = TRUE;
+                $last_id = $conn->insert_id;
+                echo "New record created successfully. Last inserted ID is: " . $last_id;
             } else {
                 //echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            $sql = "INSERT INTO restaurante (nombre, direccion, telefono, usuario_id)
+            VALUES ('$nombreRe', '$direccionRe', '$telefonoRe',  $last_id)";
+
+            if ($conn->query($sql) === TRUE) {
+                echo $last_id;
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
             $conn->close();
@@ -230,7 +253,7 @@
     </form>
 
     <div id="columna4">
-        <a href="../LogIn/LogIn.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
+        <a href="../Index.php"><input type="button" value="Regresar" class="w-50 btn btn-secondary"></a>
     </div>
 
     </main>

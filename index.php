@@ -28,6 +28,7 @@
         while($row = $result->fetch_assoc()) {
           $usuarioEncontrado = TRUE;
           //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+          $sqlconsulta = "SELECT nombre FROM cliente WHERE usuario_id=' $row[id] '";
           $_SESSION['Inicio'] = $row["id"];
         }
       } else {
@@ -96,7 +97,7 @@
     <br>
     <a href="Principal/Principal.php"><input type="submit" value="Iniciar Sesión" class="w-100 btn btn-secondary" id="inicioSesion" name="inicioSesion"></a>
     <p></p>
-    <a href="../Registrarse/Registro.php"><input type="button" value="Registrarse" class="w-100 btn btn-secondary"></a>
+    <a href="Registrarse/Registro.php"><input type="button" value="Registrarse" class="w-100 btn btn-secondary"></a>
   </form>
 </main>
 

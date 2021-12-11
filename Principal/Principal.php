@@ -1,3 +1,71 @@
+<?php
+      session_start();
+      $id = $_SESSION['Inicio'];
+      //echo $id;
+      $rol="";
+      $nombre="";
+      $nombreRe="";
+
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "practica2";
+
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      // Check connection
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+
+      $sql = "SELECT rol FROM usuario WHERE id='$id'";
+      //echo $sql;
+
+      $result = mysqli_query($conn, $sql);
+
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $usuarioEncontrado = TRUE;
+          //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+          $rol = $row["rol"];
+        }
+      } else {
+        //echo "0 results";
+      }
+
+      //Sacar nombre del cliente
+      $sqlconsulta = "SELECT nombre FROM cliente WHERE usuario_id='$id'";
+      $result = mysqli_query($conn, $sqlconsulta);
+
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $nombre=$row["nombre"];
+          //echo "Nombre: " . $row["nombre"]."<br>";
+        }
+      } else {
+        //echo "0 results";
+      }
+
+      //Sacar nombre del restaurante
+      $sqlconsultaRE = "SELECT nombre FROM restaurante WHERE usuario_id='$id'";
+      $result = mysqli_query($conn, $sqlconsultaRE);
+
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $nombre=$row["nombre"];
+          //echo "Nombre: " . $row["nombre"]."<br>";
+        }
+      } else {
+        //echo "0 results";
+      }
+
+      mysqli_close($conn);
+      //echo $rol;
+    
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -47,8 +115,8 @@
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
     <a class="py-2 d-none d-md-inline-block" href="#"></a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Nombre de usuario</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Cerrar Sesión</a>
+    <?php echo '<a class="py-2 d-none d-md-inline-block" href="">'.$nombre.'</a>' ?>
+    <a class="py-2 d-none d-md-inline-block" href="../index.php">Cerrar Sesión</a>
   </nav>
 </header>
 
@@ -57,9 +125,6 @@
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <h1 class="display-4 fw-normal">Tu catálogo de restaurantes</h1>
       <p class="lead fw-normal">En esta página se te mostrará un catálogo. de varios productos que pueden ofreceer los restaurantes.</p>
-      <p class="lead fw-normal">Incluso, si deseas puedes registrarte así seas un cliente o dueño de un restaurante!!!</p>
-      <a class="btn btn-outline-secondary" href="Registrarse/Registro.php">Regístrate</a>
-    </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
@@ -88,25 +153,28 @@
   <div class=" text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <p >¿No encuentras todo loque buscas? No te preocupes, puedes seguir buscándolo desde nuestra sección de búsqueda. Incluso, si te gusta algo del menú, puedes comprarlo.</p>
-      <a class="btn btn-outline-secondary" href="MenuCompra/MenuCompra.php">Búsqueda y Compra</a>
+      <a class="btn btn-outline-secondary" href="../MenuCompra/MenuCompra.php">Búsqueda y Compra</a>
     </div>
   </div>
 
-  <!-- Botón para el CRUD de los productos-->
-  <div class=" text-center bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <p >¿Quieres actualizar o manipular tus productos? En el siguiente botón lo encontrarás.</p>
-      <a class="btn btn-outline-secondary" href="CRUDProducto/CrearActualizarEliminar.php">Actualizar productos</a>
+  
+  <?php if($rol == 'R'):?>
+    <!-- Botón para el CRUD de los productos-->
+    <div class=" text-center bg-light">
+      <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <p >¿Quieres actualizar o manipular tus productos? En el siguiente botón lo encontrarás.</p>
+        <a class="btn btn-outline-secondary" href="../CRUDProducto/CrearActualizarEliminar.php">Actualizar productos</a>
+      </div>
     </div>
-  </div>
-
-  <!-- Botón para el CRUD de la compra -->
-  <div class=" text-center bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <p >¿Quieres actualizar o manipular tus compras? En el siguiente botón lo encontrarás.</p>
-      <a class="btn btn-outline-secondary" href="CRUDCompra/CRUDCompra.php">Actualizar compra</a>
+  <?php elseif($rol == 'C'):?>
+    <!-- Botón para el CRUD de la compra -->
+    <div class=" text-center bg-light">
+      <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <p >¿Quieres actualizar o manipular tus compras? En el siguiente botón lo encontrarás.</p>
+        <a class="btn btn-outline-secondary" href="../CRUDCompra/CRUDCompra.php">Actualizar compra</a>
+      </div>
     </div>
-  </div>
+  <?php endif ?>
 
 
 <!-- Botones inferiores -->
