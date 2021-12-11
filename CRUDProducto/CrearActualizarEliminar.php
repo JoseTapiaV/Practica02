@@ -5,6 +5,8 @@
     $codigoRestaurante="";
     if($_POST){
         if($_POST['registrar']){
+            //Para ingresar un producto nuevo
+            $codigo = ($_POST["codigo"]);
             $nombre = ($_POST["nombre"]);
             $descripcion = ($_POST["descripcion"]);
             $precio = ($_POST["precio"]);
@@ -52,6 +54,8 @@
             $conn->close();
 
         }elseif($_POST['actualizar']){
+            //para actualizar un producto
+            $codigo = ($_POST["codigo"]);
             $nombre = ($_POST["nombre"]);
             $descripcion = ($_POST["descripcion"]);
             $precio = ($_POST["precio"]);
@@ -68,16 +72,18 @@
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "UPDATE producto SET nombre='$nombre', descripcion='$descripcion', precio='$precio' WHERE codigo=3";
+            $sql = "UPDATE producto SET nombre='$nombre', descripcion='$descripcion', precio='$precio' WHERE codigo=$codigo";
 
             if ($conn->query($sql) === TRUE) {
-              echo "Record updated successfully";
+              //echo "Record updated successfully";
             } else {
-              echo "Error updating record: " . $conn->error;
+              //echo "Error updating record: " . $conn->error;
             }
 
             $conn->close();
         }elseif($_POST['eliminar']){
+            //Para eliminar el producto            
+            $codigo = ($_POST["codigo"]);
             $nombre = ($_POST["nombre"]);
             $descripcion = ($_POST["descripcion"]);
             $precio = ($_POST["precio"]);
@@ -95,12 +101,12 @@
             }
 
             // sql to delete a record
-            $sql = "DELETE FROM producto WHERE codigo=1";
+            $sql = "DELETE FROM producto WHERE codigo=$codigo";
 
             if ($conn->query($sql) === TRUE) {
-              echo "Record deleted successfully";
+              //echo "Record deleted successfully";
             } else {
-              echo "Error deleting record: " . $conn->error;
+              //echo "Error deleting record: " . $conn->error;
             }
 
             $conn->close();
@@ -125,21 +131,17 @@
 
     <div id="columna1">
         <h1>Registro para nuevos productos del menú.</h1>
-        <?php 
-          if ($registroCreado){
-            echo '<div class="alert alert-dark" role="alert">
-            Creado correctamente!
-            </div>';
-          }
-          if($_POST && !$registroCreado){
-            echo '<div class="alert alert-dark" role="alert">
-            Error al crear!
-            </div>';
-          }
-        ?>
 
         <p>A continuación ingrese los siguientes datos del producto:</p><br>
         <table id="tabla">
+          <tr>
+            <td> 
+              <p>Código:&nbsp;</p> 
+            </td>
+            <td> 
+              <input type="number_format(int)" class="form-control" id="codigo" placeholder="Útil solo para actualizar o eliminar" size="40" name="codigo"> 
+            </td>
+          </tr>
           <tr>
             <td> 
               <p>Nombre:&nbsp;</p> 
