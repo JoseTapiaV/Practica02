@@ -1,38 +1,40 @@
 <?php
+  session_start();
   $usuarioEncontrado = FALSE;
   if($_POST){
     if($_POST['inicioSesion']){
-    $correo = ($_POST['correo']);
-    $contrasena = ($_POST['contrasena']);
+      $correo = ($_POST['correo']);
+      $contrasena = ($_POST['contrasena']);
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "practica2";
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "practica2";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sql = "SELECT id, correo, contrasena, rol FROM usuario WHERE correo='$correo' AND contrasena='$contrasena'";
-    //echo $sql;
-
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        $usuarioEncontrado = TRUE;
-        //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      // Check connection
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
       }
-    } else {
-      //echo "0 results";
-    }
-    mysqli_close($conn);
 
+      $sql = "SELECT id, correo, contrasena, rol FROM usuario WHERE correo='$correo' AND contrasena='$contrasena'";
+      //echo $sql;
+
+      $result = mysqli_query($conn, $sql);
+
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $usuarioEncontrado = TRUE;
+          //echo "id: " . $row["id"]. " " . $row["correo"]. " " . $row["contrasena"]. " " . $row["rol"] . "<br>";
+          $_SESSION['Inicio'] = $row["id"];
+        }
+      } else {
+        //echo "0 results";
+      }
+      mysqli_close($conn);
+      //echo $_SESSION['Inicio'];
     }
   }
 ?>
@@ -63,8 +65,6 @@
     }
   </style>
 
-
-
 <body >
 <main >
   <form method="post" action="">
@@ -75,13 +75,14 @@
                 echo '<div class="alert alert-dark" role="alert">
                 Usuario:' . $correo . '<br>Inició sesión correctamente!
                 </div>';
+                header("Location: Principal/Principal.php");
             }
             if($_POST && !$usuarioEncontrado){
                 echo '<div class="alert alert-dark" role="alert">
-                Usuario:' . $correo . '<br>No inició sesión correctamente!
+                No inició sesión correctamente! Intente ingresar nuevamente con los datos correctos!<br>Si no tiene una cuenta puede crear una nueva.
                 </div>';
             }
-        ?>
+    ?>
 
 
     <div class="form-floating" width="200" >
