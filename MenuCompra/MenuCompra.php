@@ -82,10 +82,12 @@
     while($row = $pedidoQuery->fetch_assoc()) {
       //echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
       $pedidoTempData .= '<tr><td scope="col">'.$row["codigo"].'</td>'. '<td scope="col">'.$row["nombre"].'</td>'. '<td scope="col">'.$row["descripcion"].'</td>'. '<td scope="col">'.$row["precio"].'</td><td scope ="col"><input type=text value='.$row["cantidad"].' size="1"></td><td scope ="col">'.$row["producto"].'</td><td><button type="submit" class="btn btn-dark" name="eliminarPedido" value="agregarPedido" >Agregar al pedido</button><input type="hidden" value="'.$row["codigo"].'" name="codigoProductoTemp"/></td></tr>';
+      $subtotal = $subtotal+$row["precio"];
     }
   } else {
       //echo "0 results";
   }
+  $iva = $subtotal * 0.12 + ($subtotal);
   $conn->close();
 ?>
 <!doctype html>
@@ -174,7 +176,7 @@
                       <p>Subtotal:&nbsp;</p> 
                     </td>
                     <td> 
-                      <input type="number_format(double)" class="form-control" id="subtotal" size="40" name="subtotal"> 
+                      <input type="number_format(double)" class="form-control" id="subtotal" size="5" name="subtotal" value=<?php echo $subtotal ?>> 
                     </td>
                   </tr>
                   <tr>
@@ -182,10 +184,11 @@
                         <p>IVA:&nbsp;</p>
                     </td>
                     <td>
-                        <input type="submit" class="form-control" id="iva"  size="40" name="iva">
+                        <input type="text" class="form-control" id="iva"  size="5" name="iva" value=<?php echo $iva ?>>
                     </td>
                   </tr>
                 </table>
+                <br>
                 <br><input type="submit" value="Guardar Factura" class="w-50 btn btn-secondary" id="Guardar" name="guardarFactura">
                 <br>
                 <br><a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
