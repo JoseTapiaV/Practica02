@@ -2,7 +2,7 @@
   session_start();
   $usuario_id=$_SESSION['Inicio'];
   $datos= null;
-  var_dump($_POST);
+  //var_dump($_POST);
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -81,7 +81,7 @@
     // output data of each row
     while($row = $pedidoQuery->fetch_assoc()) {
       //echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
-      $pedidoTempData .= '<tr><td scope="col">'.$row["codigo"].'</td>'. '<td scope="col">'.$row["nombre"].'</td>'. '<td scope="col">'.$row["descripcion"].'</td>'. '<td scope="col">'.$row["precio"].'</td><td scope ="col"><input type=text value='.$row["cantidad"].' size="1"></td><td scope ="col">'.$row["producto"].'</td><td><button type="submit" class="btn btn-dark" name="eliminarPedido" value="agregarPedido" >Agregar al pedido</button><input type="hidden" value="'.$row["codigo"].'" name="codigoProductoTemp"/></td></tr>';
+      $pedidoTempData .= '<tr><td scope="col">'.$row["codigo"].'</td>'. '<td scope="col">'.$row["nombre"].'</td>'. '<td scope="col">'.$row["descripcion"].'</td>'. '<td scope="col">'.$row["precio"].'</td><td scope ="col"><input type=text value='.$row["cantidad"].' size="1"></td><td scope ="col">'.$row["producto"].'</td><td><button type="submit" class="btn btn-dark" name="eliminarPedido" value="eliminarPedido" >Eliminar Pedido</button><input type="hidden" value="'.$row["codigo"].'" name="codigoProductoTemp"/></td></tr>';
       $subtotal = $subtotal+$row["precio"];
     }
   } else {
@@ -192,7 +192,7 @@
                 <br><input type="submit" value="Guardar Factura" class="w-50 btn btn-secondary" id="Guardar" name="guardarFactura">
                 <br>
                 <br><a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
-
+                <br><br>
             </div>  
         </main>
     </form>
