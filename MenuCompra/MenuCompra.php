@@ -7,6 +7,8 @@
   $username = "root";
   $password = "";
   $dbname = "practica2";
+  $subtotal = 0;
+  $iva = 0;
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -35,7 +37,7 @@
         
     }
     if(array_key_exists('agregarPedido', $_POST) && $_POST['agregarPedido']){
-      echo $_POST['agregarPedido'];
+      //echo $_POST['agregarPedido'];
       $consultaProducto = $_POST['agregarPedido'];
       $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
@@ -43,14 +45,14 @@
           die("Connection failed: " . $conn->connect_error);
         }
       $sqlcons = "SELECT codigo, nombre, descripcion, precio FROM producto where codigo=$consultaProducto";
-      echo $sqlcons;
+      //echo $sqlcons;
       $result = $conn->query($sqlcons);
 
         if ($result) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-          echo "<br>";
-          echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
+          //echo "<br>";
+          //echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
           $nombre=$row["nombre"];
           $descripcion=$row["descripcion"];
           $precio=$row["precio"];
@@ -62,9 +64,9 @@
             //echo $sql;
 
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
+                //echo "New record created successfully";
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                //echo "Error: " . $sql . "<br>" . $conn->error;
             }
           }
         }
@@ -165,9 +167,27 @@
                         ?>
                     </thead>
                 </table>
-
-                <br><br>
-                <br><br>
+                <br>
+                <table id="tabla">
+                  <tr>
+                    <td> 
+                      <p>Subtotal:&nbsp;</p> 
+                    </td>
+                    <td> 
+                      <input type="number_format(double)" class="form-control" id="subtotal" size="40" name="subtotal"> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <p>IVA:&nbsp;</p>
+                    </td>
+                    <td>
+                        <input type="submit" class="form-control" id="iva"  size="40" name="iva">
+                    </td>
+                  </tr>
+                </table>
+                <br><input type="submit" value="Guardar Factura" class="w-50 btn btn-secondary" id="Guardar" name="guardarFactura">
+                <br>
                 <br><a href="../Principal/Principal.php"><input type="button" value="Regresar a la página principal" class="w-50 btn btn-secondary"></a>
 
             </div>  

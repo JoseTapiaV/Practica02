@@ -31,7 +31,7 @@
                 //echo "New record created successfully";
                 $registroCreado = TRUE;
                 $last_id = $conn->insert_id;
-                echo "New record created successfully. Last inserted ID is: " . $last_id;
+                //echo "New record created successfully. Last inserted ID is: " . $last_id;
             } else {
                 //echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -40,9 +40,9 @@
             VALUES ('$cedulaCliente', '$nombreCliente', '$apellidoCliente', '$direccionCliente', '$telefonoCliente', $last_id)";
 
             if ($conn->query($sql) === TRUE) {
-                echo $last_id;
+                //echo $last_id;
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                //echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
 
