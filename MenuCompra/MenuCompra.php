@@ -2,6 +2,9 @@
   session_start();
   $usuario_id=$_SESSION['Inicio'];
   $datos= null;
+  $nombre="";
+  $apellido="";
+  $cedula="";
   //var_dump($_POST);
   $servername = "localhost";
   $username = "root";
@@ -9,6 +12,8 @@
   $dbname = "practica2";
   $subtotal = 0;
   $iva = 0;
+  date_default_timezone_set('America/Guayaquil');
+  $HoraFecha=date("Y-m-d H:i:s");
 
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,7 +22,25 @@
     die("Connection failed: " . $conn->connect_error);
   }
 
+  //Capturar cedula, nombre y apellido del cliente para la factura 
+  $sqlconsulta = "SELECT cedula, nombre, apellido FROM cliente WHERE usuario_id='$usuario_id'";
+  $result = mysqli_query($conn, $sqlconsulta);
+
+  if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      $cedula=$row["cedula"];
+      $nombre=$row["nombre"];
+      $apellido=$row["apellido"];
+      //echo "Nombre: " . $row["nombre"]."<br>";
+    }
+  } else {
+    //echo "0 results";
+  }
+
+  
   if($_POST){
+    //Mostrar todos los productos
     if(array_key_exists('listar', $_POST) && $_POST['listar']){
 
         $sql = "SELECT codigo, nombre, descripcion, precio FROM producto";
@@ -36,6 +59,8 @@
         }
         
     }
+
+    //Agregar a la tabla temporal
     if(array_key_exists('agregarPedido', $_POST) && $_POST['agregarPedido']){
       //echo $_POST['agregarPedido'];
       $consultaProducto = $_POST['agregarPedido'];
@@ -70,10 +95,50 @@
             }
           }
         }
+    }  
 
+    //Confirmar la factura
+    if(array_key_exists('guardarFactura', $_POST) && $_POST['guardarFactura']){
 
+      //Insertar los datos a la factura cabecera
+      $sql = "INSERT INTO factura_cabecera (nombre, apellido, hora_fecha, subtotal, iva, cedula_id)
+      VALUES ('$nombre', '$apellido', '$HoraFecha', $subtotal, $iva, '$cedula')";
+      
+      if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        $last_id = $conn->insert_id;
+        //Insertar los datos a la factura detalle
+        $sql = "SELECT * FROM detalle_temporal Where usuario=$usuario_id";
+        $pedidoQuery = $conn->query($sql);
+        $pedidoTempData=null;
+        if ($pedidoQuery) {
+          // output data of each row
+          while($row = $pedidoQuery->fetch_assoc()) {
+            //echo  $row["codigo"]. $row["nombre"]. " " . $row["descripcion"]. $row["precio"]."<br>";
+              $nombre=$row["nombre"];
+              $precio=$row["precio"];        
+              $cantidad=$row["cantidad"];
+              $codigo=$row["producto"];
+              $sql = "INSERT INTO factura_detalle (nombre, precio, cantidad, cod_producto, cod_cabecera)
+              VALUES ('$nombre', $precio, $cantidad, $codigo, $last_id)";
+
+              if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+              }
+          }
+        } else {
+            //echo "0 results";
+        }
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+
+      
     }
   }
+  //Muestra la tabla temporal de los productos seleccionados
   $sql = "SELECT * FROM detalle_temporal Where usuario=$usuario_id";
   $pedidoQuery = $conn->query($sql);
   $pedidoTempData=null;
@@ -87,7 +152,7 @@
   } else {
       //echo "0 results";
   }
-  $iva = $subtotal * 0.12 + ($subtotal);
+  $iva = $subtotal * 0.12;
   $conn->close();
 ?>
 <!doctype html>
